@@ -2,37 +2,21 @@ import logo from './logo.svg';
 import './App.css';
 import React,{useState} from "react";
 /*  Change state */
-function CompA(){
-    const [value,setValue] = useState(10)
-    const changeValue = (inc) => {
-        setValue(value+inc)
-    }
+function CompA(allProps){
+
     return (
         <div className="App">
-            <h1>/*  Change state */</h1>
-            Current Value: <h1>{value}</h1>
-            <button onClick={()=>changeValue(1)}>+</button>
-            <button onClick={()=>changeValue(-1)}>-</button>
+            <h1>Comp1</h1>
+            List props:
+            <p>My Props1 : {allProps.myProp1}</p>
+            <p>My Props2 : {allProps.myProp2}</p>
+            <p>My Props3 : {allProps.myProp3.toString()}</p>
+            <p>My Props4 : {<allProps.myProp4/>}</p>
         </div>
     );
 }
-/* Static State */
-function CompC (){
-       const [value,setValue] = useState(10)
-        return (
-            <>
-                <h1>/* Static State */</h1>
-                Current Value: <h1>{value}</h1>
-                <button onClick={()=>setValue(value+1)}>+</button>
-                <button onClick={()=>setValue(value-1)}>-</button>
-            </>
-        )
-}
-/*  Increment state */
+
 function App() {
-    // const valueState = useState(10)
-    // const value = valueState[0];
-    // const setValue = valueState[1]
     const [value,setValue] = useState(10)
     const incrementValue = () => {
         setValue(value+1)
@@ -42,12 +26,14 @@ function App() {
     }
   return (
     <div className="App">
-        <h1>/*  Increment state */</h1>
         Current Value: <h1>{value}</h1>
-        <button onClick={incrementValue}>+</button>
-        <button onClick={decrementValue}>-</button>
-        <CompA/>
-        <CompC/>
+        <button onClick={setValue(value+1)}>+</button>
+        <button onClick={value-1}>-</button>
+        <CompA myProp1={value}
+               myProp2="My String Value"
+               myProp3={true}
+               myProp4={()=> <div> My New JSX</div>}
+        />
     </div>
   );
 }
