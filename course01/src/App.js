@@ -25,7 +25,7 @@ class CompC extends React.Component{
         }
     }
     changeState(inc){
-        this.state({
+        this.setState({
             myValue: inc
         })
     }
