@@ -1,7 +1,7 @@
 import logo from './logo.svg';
 import './App.css';
 import React,{useState} from "react";
-/*  Increment state */
+/*  Change state */
 function CompA(){
     const [value,setValue] = useState(10)
     const changeValue = (inc) => {
@@ -9,27 +9,26 @@ function CompA(){
     }
     return (
         <div className="App">
+            <h1>/*  Change state */</h1>
             Current Value: <h1>{value}</h1>
             <button onClick={()=>changeValue(1)}>+</button>
-
             <button onClick={()=>changeValue(-1)}>-</button>
-            <CompA/>
-            <CompC/>
         </div>
     );
 }
-
-class CompC extends React.Component{
-    render() {
+/* Static State */
+function CompC (){
+       const [value,setValue] = useState(10)
         return (
             <>
-                <h1>CompC</h1>
-                <p>Hello Comp C</p>
+                <h1>/* Static State */</h1>
+                Current Value: <h1>{value}</h1>
+                <button onClick={()=>setValue(value+1)}>+</button>
+                <button onClick={()=>setValue(value-1)}>-</button>
             </>
         )
-    }
 }
-/*  Change state */
+/*  Increment state */
 function App() {
     // const valueState = useState(10)
     // const value = valueState[0];
@@ -43,9 +42,9 @@ function App() {
     }
   return (
     <div className="App">
+        <h1>/*  Increment state */</h1>
         Current Value: <h1>{value}</h1>
         <button onClick={incrementValue}>+</button>
-
         <button onClick={decrementValue}>-</button>
         <CompA/>
         <CompC/>
