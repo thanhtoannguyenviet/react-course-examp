@@ -17,16 +17,30 @@ function CompA(){
     );
 }
 /* Static State */
-function CompC (){
-       const [value,setValue] = useState(10)
+class CompC extends React.Component{
+    constructor() {
+        super();
+        this.state = {
+            myValue:10
+        }
+    }
+    changeState(inc){
+        this.state({
+            myValue: inc
+        })
+    }
+    render() {
+        const { myValue } = this.state;
+
         return (
             <>
-                <h1>/* Static State */</h1>
-                Current Value: <h1>{value}</h1>
-                <button onClick={()=>setValue(value+1)}>+</button>
-                <button onClick={()=>setValue(value-1)}>-</button>
+                <h1>Hello CompC</h1>
+                Current Value: <h1>{ myValue }</h1>
+                <button onClick={() => this.changeState(myValue+1)}>+</button>
+                <button onClick={() => this.changeState(myValue-1)}>-</button>
             </>
         )
+    }
 }
 /*  Increment state */
 function App() {
