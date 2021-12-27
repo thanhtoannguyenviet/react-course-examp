@@ -7,9 +7,8 @@ import ResourceHighlight from "components/ResourceHighlight";
 import ResourceList from "components/ResourceList";
 import Newsletter from "components/Newsletter";
 import Layout from "../components/Layout";
-import {resources} from "./api/data";
 
-export default function Home() {
+export default function Home({resources}) {
   return (
       <Layout>
         <ResourceHighlight
@@ -22,4 +21,28 @@ export default function Home() {
         <Footer/>
       </Layout>
   )
+}
+
+//is called at the build time, and it's called only once
+export async function getStaticProps(){
+    const resData = await fetch("http://localhost:3000/api/resources")
+    const data =await  resData.json();
+    return {
+        props: {
+            resources:data
+        }
+    }
+}
+
+//is called every time you will visit the page
+//function is excuted on the server
+//data are always fresh
+export async function getServerSideProps(){
+    const resData = await fetch("http://localhost:3000/api/resources")
+    const data =await  resData.json();
+    return {
+        props: {
+            resources:data
+        }
+    }
 }
