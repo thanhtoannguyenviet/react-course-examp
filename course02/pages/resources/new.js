@@ -1,6 +1,6 @@
 import Layout from "../../components/Layout";
 import {useState} from "react";
-
+import axios from "axios";
 const DEFAULT_DATA={
     title:"Learning",
     description:"Learning ",
@@ -11,7 +11,7 @@ const DEFAULT_DATA={
 const ResourceCreate = () => {
     const [form,setForm] = useState(DEFAULT_DATA)
     const submitForm = () => {
-        alert(JSON.stringify(form))
+        axios.post("/api/resources",form);
     }
     const resetForm = () => setForm(DEFAULT_DATA)
     const handleChange = (e) => {
