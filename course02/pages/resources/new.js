@@ -11,7 +11,9 @@ const DEFAULT_DATA={
 const ResourceCreate = () => {
     const [form,setForm] = useState(DEFAULT_DATA)
     const submitForm = () => {
-        axios.post("/api/resources",form);
+        axios.post("/api/resources",form)
+            .then(res=>alert(res?.data))
+            .catch(err=>alert("Err: "+ err?.response?.data));
     }
     const resetForm = () => setForm(DEFAULT_DATA)
     const handleChange = (e) => {
@@ -32,7 +34,7 @@ const ResourceCreate = () => {
                                 <div className="field">
                                     <label htmlFor="">Title</label>
                                     <div className="control">
-                                        <input name="title" value={form.title} type="text" className="input" placeholder="Learn Next Js and Sanity IO"/>
+                                        <input name="title" value={form.title} onChange={handleChange} type="text" className="input" placeholder="Learn Next Js and Sanity IO"/>
                                     </div>
                                 </div>
                                 <div className="field">
@@ -41,8 +43,9 @@ const ResourceCreate = () => {
                                         <textarea
                                             name="description"
                                             className="textarea"
-                                                  value={form.description}
-                                                  placeholder="Learn these technologies beacause they're popular  and enable better SEO"
+                                            onChange={handleChange}
+                                            value={form.description}
+                                            placeholder="Learn these technologies beacause they're popular  and enable better SEO"
                                         />
                                     </div>
                                 </div>
@@ -50,15 +53,19 @@ const ResourceCreate = () => {
                                     <label htmlFor="">Link</label>
                                     <div className="control">
                                         <input
+                                            onChange={handleChange}
                                             name="link"
-                                            value={form.link} type="text" className="input" placeholder="https://learnjs.nvtt"/>
+                                            value={form.link}
+                                            type="text"
+                                            className="input"
+                                            placeholder="https://learnjs.nvtt"/>
                                     </div>
                                 </div>
                                 <div className="field">
                                     <label htmlFor="">Priority</label>
                                     <div className="control">
                                        <div className="select">
-                                           <select name="" id="" name="priority" value={form.priority}>
+                                           <select name="" id="" name="priority" value={form.priority} onChange={handleChange}>
                                                <option>1</option>
                                                <option>2</option>
                                                <option>3</option>
@@ -69,7 +76,7 @@ const ResourceCreate = () => {
                                 <div className="field">
                                     <label htmlFor="">Time to finish</label>
                                     <div className="control">
-                                        <input name="timeToFinish" value={form.timeToFinish} type="text" className="input" placeholder="60 (time is in minutes)"/>
+                                        <input name="timeToFinish" onChange={handleChange} value={form.timeToFinish} type="text" className="input" placeholder="60 (time is in minutes)"/>
                                         <p className="help">Time is in minutes</p>
                                     </div>
                                 </div>
