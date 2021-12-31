@@ -14,6 +14,7 @@ const corsOptions = {
     optionsSuccessStatus: 200
 }
 app.use(cors(corsOptions))
+app.use(express.json())
 app.listen(PORT,()=>{
     console.log("Server is listening on port:" + PORT )
 })
@@ -27,4 +28,28 @@ app.get("/api/resources",(req,res)=>{
     // console.log(JSON.parse(stringifiedData))
     const resources = getResources()
     res.send(resources)
+})
+
+app.post("/api/resources",(req,res)=>{
+    const resources = getResources()
+    // console.log("Data has been received to POST endpoint")
+    // console.log(req.body)
+    const resource = req.body
+    resource.createAt= new Date()
+    resource.status = "inactive"
+    resource.id = Date.now().toString()
+    resources.unshift(resource)
+    fs.writeFile(pathToFile,JSON.stringify(resources,null,2), (err)=>{
+        if(err){
+            return res.status(422).send("Cannot store data in the file!")
+        }
+        return res.send("Data has been received")
+    })
+})
+
+app.get("/api/resources/:id", (req,res)=>{
+    const resources = getResources()
+    const {id} = req.params
+    const resource = resources.find((resource) => resource.id === id)
+    res.send(resource)
 })

@@ -1,3 +1,4 @@
+import Link from "next/link";
 export default function ResourceHighlight({resources}) {
     return (
         <section className="hero ">
@@ -7,17 +8,20 @@ export default function ResourceHighlight({resources}) {
                         resources.map(
                             resources => {
                                 return (
-                                        <section key={resources.id} className="section">
-                                            <div className="columns">
-                                                <div className="column is-8 is-offset-2">
-                                                    <div className="content is-medium">
-                                                        <h2 className="subtitle is-4">{resources.createAt}</h2>
-                                                        <h1 className="title">{resources.title}</h1>
-                                                        <p>{resources.description}</p>
-                                                    </div>
+                                    <section key={resources.id} className="section">
+                                        <div className="columns">
+                                            <div className="column is-8 is-offset-2">
+                                                <div className="content is-medium">
+                                                    <h2 className="subtitle is-4">{resources.createAt}</h2>
+                                                    <h1 className="title">{resources.title}</h1>
+                                                    <p>{resources.description}</p>
+                                                    <Link href={`/resources/${resources.id}`}>
+                                                        <a className="button is-link">Learn More</a>
+                                                    </Link>
                                                 </div>
                                             </div>
-                                        </section>
+                                        </div>
+                                    </section>
                                 )
                             }
                         )
