@@ -1,6 +1,12 @@
 import Layout from "../../components/Layout";
+import {useRouter} from "next/router";
 
 const ResourceDetail = ({resource}) => {
+    const router = useRouter()
+    //if fallback:true
+    // if(router.isFallback){
+    //     return <div>Loading data!</div>
+    // }
     return (
         <Layout>
             <section className="hero ">
@@ -59,6 +65,12 @@ export async function getStaticPaths() {
         //means that other routes should resolve into 404_page
         fallback:false
     }
+
+    // return {
+    //     paths,
+    //     //means that other routes should resolve into 404_page
+    //     fallback:true
+    // }
 }
 export async function getStaticProps({params}){
     const resData = await fetch(`http://localhost:3001/api/resources/${params.id}`)
@@ -66,6 +78,8 @@ export async function getStaticProps({params}){
     return {
             props:{
                 resource:data
-            }
+            },
+            //Revalidate:1 sẻ cho phép ta load lại dữ liệu từ api đỗ vào bên trong bất kể đó đang là trang tĩnh.
+            revalidate:1
     }
 }
