@@ -26,13 +26,46 @@ const ResourceDetail = ({resource}) => {
     )
 }
 
-export async function getServerSideProps({params}){
-    const dataRes = await fetch(`http://localhost:3001/api/resources/${params.id}`)
-    const data = await dataRes.json()
-    return {
-        props:{
-            resource:data
+export default ResourceDetail
+// export async function getServerSideProps({params}){
+//     const dataRes = await fetch(`http://localhost:3001/api/resources/${params.id}`)
+//     const data = await dataRes.json()
+//     return {
+//         props:{
+//             resource:data
+//         }
+//     }
+// }
+//Lower version then 9.3. Higher we use getServerSideProps to replace getInitialProps
+// ResourceDetail.getInitialProps = async ({query}) => {
+//     const dataRes = await fetch(`http://localhost:3001/api/resources/${query.id}`)
+//     const data = await dataRes.json()
+//     return {
+//             resource:data
+//     }
+// }
+// export default ResourceDetail
+
+export async function getStaticPaths() {
+    const resData = await fetch("http://localhost:3001/api/resources/")
+    const data = await  resData.json()
+    const paths = data.map(item =>{
+        return {
+            params: {id: item.id}
         }
+    })
+    return {
+        paths,
+        //means that other routes should resolve into 404_page
+        fallback:false
     }
 }
-export default ResourceDetail
+export async function getStaticProps({params}){
+    const resData = await fetch(`http://localhost:3001/api/resources/${params.id}`)
+    const data = await  resData.json()
+    return {
+            props:{
+                resource:data
+            }
+    }
+}
